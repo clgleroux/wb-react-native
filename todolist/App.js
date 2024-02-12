@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Todolist</Text>
+      <Text style={{ fontSize: 20, fontWeight: 700 }}>Todolist</Text>
 
       <ScrollView style={{ width: "80%" }}>
         <View style={{ gap: 10 }}>
