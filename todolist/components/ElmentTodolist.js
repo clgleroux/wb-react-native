@@ -1,19 +1,21 @@
 import React from "react";
 import { Button, View, Text } from "react-native";
 
+import DeleteButton from "./commun/button/Delete";
+
 export default function FormTodolist(props) {
   return (
     <View
       style={{
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-between",
         gap: 8,
       }}
     >
-      <Text>{props.todolist}</Text>
+      <Text style={{ width: "70%" }}>{props.todolist}</Text>
 
-      <Button title="Delete" onPress={() => props.onDelete()} />
+      <DeleteButton title="Delete" onPress={() => props.onDelete()} />
     </View>
   );
 }

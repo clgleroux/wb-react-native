@@ -18,7 +18,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Text>Todolist</Text>
 
-      <ScrollView>
+      <ScrollView style={{ width: "80%" }}>
         <View style={{ gap: 10 }}>
           {todolists.map((todolist, index) => (
             <ElmentTodolist
