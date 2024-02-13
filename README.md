@@ -8,13 +8,13 @@ API : OpenWeatherMap https://openweathermap.org/
 Baser sur la geolocalisation
 Prévison météo
 
-# Coktails
+# Cocktails
 
 API : thecooktaildb https://www.thecocktaildb.com/
 Scroll info sur les cocktails
 Créer une page de details
-Liker des cooktails oiur les afficher ailleurs
-Trier les cooktails
+Liker des cocktails oiur les afficher ailleurs
+Trier les cocktails
 Bottom Navbar
 
 # Compteur
