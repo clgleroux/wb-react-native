@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
-  FlatList,
+  SectionList,
   ActivityIndicator,
 } from "react-native";
 
@@ -19,44 +18,51 @@ export default function CategoryCocktailsScreen({ navigation }) {
   const [indexAlphabet, setIndexAlphabet] = useState(0);
 
   useEffect(() => {
-    setIsLoading(true);
-  }, []);
-
-  useEffect(() => {
     (async () => {
-      let requestCocktails = (
-        await CocktailsService.getCocktailsByFirstLetter(
-          alphabet[indexAlphabet]
-        )
+      setIsLoading(true);
+
+      let requestCocktailsCategoryOrdinary = (
+        await CocktailsService.getCocktailsByCategory("Ordinary_Drink")
       ).data;
 
-      console.log(requestCocktails);
+      let requestCocktailsCategoryCocktails = (
+        await CocktailsService.getCocktailsByCategory("Cocktail")
+      ).data;
 
-      if (cocktails) {
-        setCocktails([...cocktails, ...requestCocktails.drinks]);
-      } else {
-        setCocktails(requestCocktails.drinks);
-      }
+      setCocktails([
+        {
+          title: "Ordinary Drink",
+          data: requestCocktailsCategoryOrdinary.drinks,
+        },
+        {
+          title: "Cocktails",
+          data: requestCocktailsCategoryCocktails.drinks,
+        },
+      ]);
 
       setIsLoading(false);
     })();
-  }, [indexAlphabet]);
-
-  const fetchNextPage = async () => {
-    setIndexAlphabet(indexAlphabet + 1);
-  };
+  }, []);
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={cocktails}
-        contentContainerStyle={{ gap: 20 }}
-        onEndReached={fetchNextPage}
-        renderItem={({ item }) => (
-          <CardCocktails item={item} navigation={navigation} />
-        )}
-        keyExtractor={(item) => item.idDrink}
-      />
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <SectionList
+          sections={cocktails}
+          keyExtractor={(item, index) => item + index}
+          contentContainerStyle={{ gap: 20 }}
+          renderItem={({ item }) => (
+            <View>
+              <CardCocktails item={item} navigation={navigation} />
+            </View>
+          )}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.header}>{title}</Text>
+          )}
+        />
+      )}
     </View>
   );
 }
@@ -67,5 +73,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  header: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 23,
+    fontWeight: 600,
   },
 });

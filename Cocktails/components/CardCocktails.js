@@ -22,8 +22,6 @@ export default function CardCocktails(props) {
 
       const res = temp.filter((item) => item === props.item.idDrink);
 
-      console.log(res);
-
       if (res.length > 0) setFavorite(true);
     };
     fetchFavorites();
@@ -42,26 +40,34 @@ export default function CardCocktails(props) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() =>
+        onPress={() => {
           props.navigation.navigate("ViewCocktails", {
             idDrink: props.item.idDrink,
-          })
-        }
+          });
+        }}
       >
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <View>
+        <View style={{ flex: 1, flexDirection: "column" }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 5,
+            }}
+          >
             <Image
               source={{
                 uri: props.item.strDrinkThumb,
               }}
               style={{ width: 100, height: 100 }}
             ></Image>
-            <Text style={styles.title}>{props.item.strDrink}</Text>
-          </View>
-          <View style={{ flex: 1, justifyContent: "center" }}>
             <TouchableOpacity onPress={fav} style={styles.buttonFavorite}>
               <Text>{isFavorite ? "❤️" : "🖤"}</Text>
             </TouchableOpacity>
+          </View>
+          <View style={{ justifyContent: "start" }}>
+            <Text style={styles.title}>{props.item.strDrink}</Text>
           </View>
         </View>
       </TouchableOpacity>

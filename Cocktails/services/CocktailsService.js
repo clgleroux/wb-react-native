@@ -12,6 +12,14 @@ class CocktailsService {
     });
   };
 
+  getCocktailsByCategory = async (category) => {
+    return await axios.get(`${this.url}/json/v1/1/filter.php`, {
+      params: {
+        c: category,
+      },
+    });
+  };
+
   getCocktailsByID = async (id) => {
     return await axios.get(`${this.url}/json/v1/1/lookup.php`, {
       params: {
@@ -40,6 +48,12 @@ class CocktailsService {
 
   getFavorite = async () => {
     return JSON.parse(await AsyncStorage.getItem("favorites"));
+  };
+
+  isFavoriteById = async (id) => {
+    let favorites = JSON.parse(await AsyncStorage.getItem("favorites"));
+
+    return favorites.filter((item) => item === id).length ? true : false;
   };
 
   removeFavorite = async (id) => {

@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 
 import { Ionicons } from "@expo/vector-icons";
 
-function CocktailsStack() {
+function ListCocktailsStack() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -26,6 +26,25 @@ function CocktailsStack() {
       initialRouteName="ListCocktails"
     >
       <Stack.Screen name="ListCocktails" component={ListCocktailsScreen} />
+
+      <Stack.Screen name="ViewCocktails" component={ViewCocktailsScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function CategoryCocktailsStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="CategoryCocktails"
+    >
+      <Stack.Screen
+        name="CategoryCocktails"
+        component={CategoryCocktailsScreen}
+      />
+
       <Stack.Screen name="ViewCocktails" component={ViewCocktailsScreen} />
     </Stack.Navigator>
   );
@@ -37,8 +56,9 @@ export default function App() {
       <Tab.Navigator>
         <Tab.Screen
           name="Cocktails"
-          component={CocktailsStack}
+          component={ListCocktailsStack}
           options={{
+            unmountOnBlur: true,
             tabBarLabel: "Home",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="home" color={color} size={size} />
@@ -50,15 +70,15 @@ export default function App() {
           component={FavoriteCocktailsScreen}
           options={{
             unmountOnBlur: true,
-            tabBarLabel: "Search",
+            tabBarLabel: "Favorite",
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="search" color={color} size={size} />
+              <Ionicons name="heart" color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
           name="CategoryCocktails"
-          component={CategoryCocktailsScreen}
+          component={CategoryCocktailsStack}
           options={{
             tabBarLabel: "Category",
             tabBarIcon: ({ color, size }) => (

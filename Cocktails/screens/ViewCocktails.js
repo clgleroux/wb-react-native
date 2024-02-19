@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Image,
   Button,
+  TouchableOpacity,
 } from "react-native";
 
 import CardCocktails from "../components/CardCocktails";
@@ -17,7 +18,9 @@ import CocktailsService from "../services/CocktailsService";
 
 export default function ViewCocktailsScreen({ route }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [cocktails, setCocktails] = useState(null);
+  const [cocktails, setCocktails] = useState();
+  const [ingredients, setIngredients] = useState([]);
+  const [isFavorite, setIsFavorite] = useState();
 
   useEffect(() => {
     (async () => {
@@ -27,16 +30,33 @@ export default function ViewCocktailsScreen({ route }) {
         await CocktailsService.getCocktailsByID(route.params.idDrink)
       ).data;
 
-      console.log(requestCocktails);
-
       setCocktails(requestCocktails.drinks[0]);
+
+      let ingredientsList = [];
+      for (let i = 1; i <= 15; i++) {
+        const ingredient = requestCocktails.drinks[0][`strIngredient${i}`];
+        const measure = requestCocktails.drinks[0][`strMeasure${i}`];
+        if (ingredient != null) {
+          ingredientsList.push({ ingredient, measure });
+        }
+      }
+      setIngredients(ingredientsList);
+
+      setIsFavorite(
+        await CocktailsService.isFavoriteById(route.params.idDrink)
+      );
 
       setIsLoading(false);
     })();
   }, []);
 
-  const addFavorite = () => {
-    console.log(route.params.idDrink);
+  const addFavorite = async () => {
+    if (isFavorite) {
+      await CocktailsService.removeFavorite(cocktails.idDrink);
+    } else {
+      await CocktailsService.setFavorite(cocktails.idDrink);
+    }
+    setIsFavorite(!isFavorite);
   };
 
   return (
@@ -45,17 +65,37 @@ export default function ViewCocktailsScreen({ route }) {
         <ActivityIndicator />
       ) : (
         <View>
-          <Image
-            source={{
-              uri: cocktails.strDrinkThumb,
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
-            style={{ width: 100, height: 100 }}
-          ></Image>
-          <Text>{cocktails.idDrink}</Text>
-          <Text>{cocktails.strDrink}</Text>
-          <Text>{cocktails.strInstructions}</Text>
+          >
+            <Image
+              source={{
+                uri: cocktails.strDrinkThumb,
+              }}
+              style={{ width: 100, height: 100 }}
+            ></Image>
+            <TouchableOpacity onPress={addFavorite}>
+              <Text>{isFavorite ? "Remove Favorite" : "Add Favorite"}</Text>
+            </TouchableOpacity>
+          </View>
 
-          <Button onPress={addFavorite}>Add Favorite</Button>
+          <Text style={styles.title}>{cocktails.strDrink}</Text>
+
+          <Text>Glass: {cocktails.strGlass}</Text>
+
+          <Text style={styles.subtitle}>Ingredients</Text>
+          {ingredients.map((item, index) => (
+            <Text key={index}>
+              {item.ingredient} : {item.measure}
+            </Text>
+          ))}
+
+          <Text style={styles.subtitle}>Instructions</Text>
+          <Text>{cocktails.strInstructions}</Text>
         </View>
       )}
     </View>
@@ -68,5 +108,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  title: {
+    fontSize: 24,
+  },
+  subtitle: {
+    fontSize: 18,
+    marginVertical: 10,
   },
 });
