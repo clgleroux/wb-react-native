@@ -6,42 +6,6 @@ import OpenWeatherMapService from "./../services/OpenWeatherMapService";
 
 export default function PreviewWeather(props) {
   const date = new Date(props.weather.dt * 1000);
-  const temp = {
-    dt: 1707825600,
-    main: {
-      temp: 8.8,
-      feels_like: 8.8,
-      temp_min: 8.8,
-      temp_max: 10.57,
-      pressure: 1021,
-      sea_level: 1021,
-      grnd_level: 1002,
-      humidity: 71,
-      temp_kf: -1.77,
-    },
-    weather: [
-      {
-        id: 802,
-        main: "Clouds",
-        description: "scattered clouds",
-        icon: "03d",
-      },
-    ],
-    clouds: {
-      all: 29,
-    },
-    wind: {
-      speed: 1.13,
-      deg: 8,
-      gust: 1.53,
-    },
-    visibility: 10000,
-    pop: 0,
-    sys: {
-      pod: "d",
-    },
-    dt_txt: "2024-02-13 12:00:00",
-  };
 
   return (
     <View
