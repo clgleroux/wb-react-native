@@ -30,8 +30,6 @@ export default function ListCocktailsScreen({ navigation }) {
         )
       ).data;
 
-      console.log(requestCocktails);
-
       if (cocktails) {
         setCocktails([...cocktails, ...requestCocktails.drinks]);
       } else {

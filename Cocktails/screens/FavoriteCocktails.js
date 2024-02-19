@@ -28,10 +28,8 @@ export default function FavoriteCocktailsScreen({ navigation, route }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(idsFavorite);
       const cocktailsData = await Promise.all(
         idsFavorite.map(async (id) => {
-          console.log(id);
           let requestCocktails = (await CocktailsService.getCocktailsByID(id))
             .data;
           return requestCocktails.drinks;

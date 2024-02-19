@@ -46,19 +46,12 @@ export default function App() {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
 
-      console.log({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      });
-
       let requestWeather = (
         await OpenWeatherMapService.getWeatherToday(
           location.coords.latitude,
           location.coords.longitude
         )
       ).data;
-
-      console.log(requestWeather);
 
       requestWeather = {
         city: requestWeather.name,
@@ -83,8 +76,6 @@ export default function App() {
           all: requestWeather.clouds.all,
         },
       };
-
-      console.log(requestWeather);
 
       setInfoWeather(requestWeather);
 
