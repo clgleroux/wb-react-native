@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, FlatList, Item } from "react-native";
+import { StyleSheet } from "react-native";
 
 import ListCocktailsScreen from "./screens/ListCocktails";
 import ViewCocktailsScreen from "./screens/ViewCocktails";

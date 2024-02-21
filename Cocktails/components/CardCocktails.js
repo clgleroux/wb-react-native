@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Item,
-  Image,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 import CocktailsService from "./../services/CocktailsService";
 

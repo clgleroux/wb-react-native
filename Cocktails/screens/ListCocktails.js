@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+
+import { StyleSheet, View, FlatList } from "react-native";
 
 import CardCocktails from "../components/CardCocktails";
 

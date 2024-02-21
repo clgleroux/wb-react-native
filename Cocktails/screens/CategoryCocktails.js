@@ -11,13 +11,9 @@ import CardCocktails from "../components/CardCocktails";
 
 import CocktailsService from "../services/CocktailsService";
 
-import { Dimensions } from "react-native";
-
 export default function CategoryCocktailsScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
   const [cocktails, setCocktails] = useState(null);
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  const [indexAlphabet, setIndexAlphabet] = useState(0);
 
   useEffect(() => {
     (async () => {
