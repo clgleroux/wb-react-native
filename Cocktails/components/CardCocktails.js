@@ -20,9 +20,11 @@ export default function CardCocktails(props) {
     const fetchFavorites = async () => {
       const temp = await CocktailsService.getFavorite();
 
-      const res = temp.filter((item) => item === props.item.idDrink);
+      if (temp && temp.length > 0) {
+        const res = temp.filter((item) => item === props.item.idDrink);
 
-      if (res.length > 0) setFavorite(true);
+        if (res.length > 0) setFavorite(true);
+      }
     };
     fetchFavorites();
   }, []);

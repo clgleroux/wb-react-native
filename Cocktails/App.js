@@ -9,6 +9,8 @@ import CategoryCocktailsScreen from "./screens/CategoryCocktails";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import { Dimensions } from "react-native";
+
 const Stack = createNativeStackNavigator();
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -77,7 +79,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="CategoryCocktails"
+          name="CategoriesCocktails"
           component={CategoryCocktailsStack}
           options={{
             tabBarLabel: "Category",
@@ -97,5 +99,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    width: Dimensions.get("window").width,
   },
 });

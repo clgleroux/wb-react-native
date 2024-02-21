@@ -38,7 +38,7 @@ export default function FavoriteCocktailsScreen({ navigation, route }) {
 
       setCocktails(cocktailsData.flat());
     };
-    if (idsFavorite.length > 0) {
+    if (idsFavorite && idsFavorite.length > 0) {
       fetchData();
     }
   }, [idsFavorite]);

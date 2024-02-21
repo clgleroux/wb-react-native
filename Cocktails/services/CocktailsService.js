@@ -53,6 +53,8 @@ class CocktailsService {
   isFavoriteById = async (id) => {
     let favorites = JSON.parse(await AsyncStorage.getItem("favorites"));
 
+    if (!(favorites && favorites.length > 0)) return false;
+
     return favorites.filter((item) => item === id).length ? true : false;
   };
 

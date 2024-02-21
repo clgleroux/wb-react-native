@@ -12,9 +12,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import CardCocktails from "../components/CardCocktails";
-
 import CocktailsService from "../services/CocktailsService";
+
+import { Dimensions } from "react-native";
 
 export default function ViewCocktailsScreen({ route }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
     justifyContent: "center",
+    width: Dimensions.get("window").width,
   },
   title: {
     fontSize: 24,
